@@ -43,27 +43,36 @@ Only use the following Git Commit Messages. A simple and small footprint is crit
     > Use when you add something entirely new.
     > E.g. `📦 NEW: Add Git ignore file`
 
-1. `👌 IMPROVE: IMPERATIVE_MESSAGE_GOES_HERE`
+2. `👌 IMPROVE: IMPERATIVE_MESSAGE_GOES_HERE`
     > Use when you improve/enhance piece of code like refactoring etc.
     > E.g. `👌 IMPROVE: Remote IP API Function`
 
-1. `🐛 FIX: IMPERATIVE_MESSAGE_GOES_HERE`
+3. `🐛 FIX: IMPERATIVE_MESSAGE_GOES_HERE`
     > Use when you fix a bug — need I say more?
     > E.g. `🐛 FIX: Case converter`
 
-1. `📖 DOC: IMPERATIVE_MESSAGE_GOES_HERE`
+4. `📖 DOC: IMPERATIVE_MESSAGE_GOES_HERE`
     > Use when you add documentation like `README.md`, or even inline docs.
     > E.g. `📖 DOC: API Interface Tutorial`
 
 
-1. `🚀 RELEASE: IMPERATIVE_MESSAGE_GOES_HERE`
+5. `🚀 RELEASE: IMPERATIVE_MESSAGE_GOES_HERE`
     > Use when you release a new version.
     > E.g. `🚀 RELEASE: Version 2.0.0`
 
 
-1. `✅ TEST: IMPERATIVE_MESSAGE_GOES_HERE`
+6. `✅ TEST: IMPERATIVE_MESSAGE_GOES_HERE`
     > Use when you release a new version.
     > E.g. `✅ TEST: Mock User Login/Logout`
+    
+    
+7. `💥 GIT: SOME_MESSAGE_GOES_HERE`
+    > Use when you have some git related message.
+    > E.g. `💥 GIT: This is a merge`
+    
+8. `😅 TRY: IMPERATIVE_MESSAGE_GOES_HERE`
+    > Use when you might break code due to that commit.
+    > E.g. `😅 TRY: I don't know what I am doing`
 
 _— That's it for now. Nothing more nothing less._
 
@@ -81,18 +90,26 @@ I'd like to share what each of these emojis mean.
 - `🐛 FIX:` Emoji meaning: A "bug emoji" — which means there was a bug that got fixed.
 - `📖 DOCS:` Emoji meaning: A "book emoji" — which means documentation or notes just like in a book.
 - `🚀 RELEASE:` Emoji meaning: A "rocket emoji" — which is meant to show a new release/launch.
-- `✅ TEST:` Emoji meaning: A "check emoji" — which says some test were run successfully.
+- `✅ TEST:` Emoji meaning: A "check emoji" — which says some test were written.
+- `💥 GIT:` Emoji meaning: A "blast emoji" - which says the commit was git related
+- `😅 TRY:` Emoji meaning: A "sweat emoji" - which is to be used when commits might break stuffs and might not even work.
 
 For quick prototyping, I have made the following functions that you can add to your `.bashrc`/`.zshrc` files and use Emoji-Log quickly.
 
 
 ```sh
-#.# Better Git Logs.
-### Using EMOJI-LOG (https://github.com/ahmadawais/Emoji-Log).
+#################
+# Git Emoji-Log #
+#################
 
-# Git Commit, Add all and Push — in one step.
+# Git Add all
+function gta() {
+    git add .
+}
+
+# Git Commit, and Push — in one step.
 function gcap() {
-    git add . && git commit -m "$*" && git push
+    git commit -m "$1" -m "$2" && git push
 }
 
 # NEW.
@@ -124,6 +141,16 @@ function gdoc() {
 function gtst() {
     gcap "✅ TEST: $@"
 }
+
+# MERGE, GIT STUFFS, CONFLICTS, COMMITS THAT DON'T HAVE TO BE COMMITED.
+function ggit() {
+    gcap "💥 GIT: $@"
+}
+
+# COMMITS THAT YOU ARE SURE MIGHT GO WRONG, BUT YOU STILL NEED TO COMMIT.
+function gtry() {
+    gcap "😅 TRY: $@"
+}
 ```
 
 To install these functions for the fish shell, run the following commands:
@@ -136,6 +163,8 @@ function gfix; gcap "🐛 FIX: $argv"; end;
 function grlz; gcap "🚀 RELEASE: $argv"; end;
 function gdoc; gcap "📖 DOC: $argv"; end;
 function gtst; gcap "✅ TEST: $argv"; end;
+function ggit; gcap "💥 GIT: $argv"; end;
+function gtry; gcap "😅 TRY: $argv"; end;
 funcsave gcap
 funcsave gnew
 funcsave gimp
@@ -143,6 +172,8 @@ funcsave gfix
 funcsave grlz
 funcsave gdoc
 funcsave gtst
+funcsave ggit
+funcsave gtry
 ```
 
 If you prefer, you can paste these aliases directly in your `~/.gitconfig` file:
